@@ -8,6 +8,7 @@ PROJECT_TAG="HA-Lab"
 VM_NAME="vm-gmt-ubuntu"
 LOCATION="eastus"
 ADMIN_USERNAME="userprueba"
+ADMIN_PASSWORD="Password1234!"
 UBUNTU_IMAGE="Ubuntu2404"
 # --- Inicio del Script ---
 echo "=================================================="
@@ -110,20 +111,19 @@ az network lb rule create \
 for i in {1..2}; do
   az vm create \
     --name VM$i \
-    --resource-group $RESOURCE_GROUP \
-    --vnet-name LabVnet \
-    --subnet privateSubnet \
-    --nsg LabNSG \
-    --availability-set HAAvailabilitySet \
+     --resource-group $RESOURCE_GROUP_NAME \
+    --name $VM_NAME \
     --image $UBUNTU_IMAGE \
     --size "Standard_B1s" \
+    --storage-sku "Standard_LRS" \
     --admin-username $ADMIN_USERNAME \
-    --authentication-type ssh \
-    --ssh-key-value ~/.ssh/id_rsa.pub \
-    --public-ip-address "" \
-    --os-disk-delete-option delete \
-    --data-disk-delete-option delete \
-    --tags "proyecto=$PROJECT_TAG" "propietario=$OWNER_TAG" "ambiente=laboratorio"
+    --admin-password $ADMIN_PASSWORD \
+    --location $LOCATION \
+    --tags \
+        environment="$TAG_ENVIRONMENT" \
+        project="$TAG_PROJECT" \
+        owner="$TAG_OWNER" \
+    --nsg-rule SSH
 
   # Agregar VM al pool del balanceador
   az network nic ip-config update \
