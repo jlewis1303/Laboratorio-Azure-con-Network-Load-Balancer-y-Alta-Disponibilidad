@@ -100,8 +100,8 @@ for i in {1..2}; do
     --subnet privateSubnet \
     --nsg LabNSG \
     --availability-set HAAvailabilitySet \
-    --image UbuntuLTS \
-    --size Standard_B1ls \
+    --image Ubuntu2404 \
+    --size Standard_B1s \
     --admin-username azureuser \
     --authentication-type ssh \
     --ssh-key-value ~/.ssh/id_rsa.pub \
