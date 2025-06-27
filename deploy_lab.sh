@@ -3,9 +3,24 @@
 # Configuración inicial
 RESOURCE_GROUP="FinOpsLab-RG"
 LOCATION="eastus"
-OWNER_TAG="TuNombre"
+OWNER_TAG="Jlewis"
 PROJECT_TAG="HA-Lab"
+VM_NAME="vm-gmt-ubuntu"
+LOCATION="eastus"
+ADMIN_USERNAME="userprueba"
+UBUNTU_IMAGE="Ubuntu2404"
+# --- Inicio del Script ---
+echo "=================================================="
+echo "Iniciando el despliegue de la VM en Azure..."
+echo "=================================================="
 
+# Verificar si el usuario ha iniciado sesión en Azure
+if ! az account show > /dev/null 2>&1; then
+    echo "ERROR: No has iniciado sesión en Azure CLI."
+    echo "Por favor, ejecuta 'az login' e inténtalo de nuevo."
+    exit 1
+fi
+echo "Paso 1: Creando el Grupo de Recursos '$RESOURCE_GROUP' en '$LOCATION'..."
 # Crear grupo de recursos con etiquetas FinOps
 az group create \
   --name $RESOURCE_GROUP \
@@ -100,9 +115,9 @@ for i in {1..2}; do
     --subnet privateSubnet \
     --nsg LabNSG \
     --availability-set HAAvailabilitySet \
-    --image Ubuntu2404 \
-    --size Standard_B1s \
-    --admin-username azureuser \
+    --image $UBUNTU_IMAGE \
+    --size "Standard_B1s" \
+    --admin-username $ADMIN_USERNAME \
     --authentication-type ssh \
     --ssh-key-value ~/.ssh/id_rsa.pub \
     --public-ip-address "" \
