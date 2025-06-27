@@ -3,10 +3,12 @@
 # Variables globales
 RG="lab-balancer"
 LOCATION="eastus"
-VM_SIZE="Standard_DS1_v2"
+VM_SIZE="Standard_B1s"
 IMAGE="Ubuntu2404"
 USERNAME="azureuser"
-PASSWORD="Password1234!" # solo para ejemplo, usar auth por clave en producción
+PASSWORD="Password1234!" 
+
+# solo para ejemplo, usar auth por clave en producción
 
 # Etiquetas
 TAGS="proyecto=laboratorio finops=true propietario=waton entorno=dev caducidad=7d"
