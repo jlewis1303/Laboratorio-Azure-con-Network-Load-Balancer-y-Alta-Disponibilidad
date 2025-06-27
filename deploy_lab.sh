@@ -3,8 +3,8 @@
 # Variables globales
 RG="lab-balancer"
 LOCATION="eastus"
-VM_SIZE="Standard_B1s"
-IMAGE="UbuntuLTS"
+VM_SIZE="Standard_DS1_v2"
+IMAGE="Ubuntu2404"
 USERNAME="azureuser"
 PASSWORD="Password1234!" # solo para ejemplo, usar auth por clave en producción
 
@@ -22,7 +22,7 @@ az network vnet create \
   az network public-ip create \
   --resource-group $RG \
   --name lb-public-ip \
-  --sku Basic \
+  --sku standard \
   --allocation-method Static \
   --tags $TAGS
 
@@ -32,7 +32,7 @@ az network vnet create \
   --frontend-ip-name lb-frontend \
   --backend-pool-name lb-backend-pool \
   --public-ip-address lb-public-ip \
-  --sku Basic \
+  --sku standard \
   --tags $TAGS
 
   az network lb probe create \
